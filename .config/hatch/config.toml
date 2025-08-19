@@ -2,12 +2,6 @@ mode = "local"
 project = ""
 shell = ""
 
-classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-]
 
 [dirs]
 project = []
