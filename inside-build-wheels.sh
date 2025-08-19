@@ -15,12 +15,12 @@ OMNIORB_DESTDIR=/workdir/dist/${PYVER}/omniORB-${OMNIORB_VERSION}
 #cd omniORB-${OMNIORB_VERSION}
 
 PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python ./configure --with-openssl=/usr
-#make -j
-#mkdir -p ${OMNIORB_DESTDIR}
-#make install DESTDIR=${OMNIORB_DESTDIR}
+make -j
+mkdir -p ${OMNIORB_DESTDIR}
+make install DESTDIR=${OMNIORB_DESTDIR}
 
-#echo "✅ omniORB installed at ${OMNIORB_DESTDIR}"
-#cd ..
+echo "✅ omniORB installed at ${OMNIORB_DESTDIR}"
+cd ..
 
 echo "Now building omniORBpy"
 curl -L https://downloads.sourceforge.net/omniorb/omniORBpy/omniORBpy-${OMNIORB_VERSION}/omniORBpy-${OMNIORB_VERSION}.tar.bz2 | tar xj
