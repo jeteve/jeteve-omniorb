@@ -2,4 +2,6 @@
 omniORB-*
 omniORBpy-*
 dist/
-
+.cache/
+.local/
+jeteve-omniorb/
