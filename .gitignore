@@ -1,1 +1,5 @@
 .docker-image-id
+omniORB-*
+omniORBpy-*
+dist/
+
