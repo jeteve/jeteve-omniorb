@@ -5,3 +5,5 @@ dist/
 .cache/
 .local/
 jeteve-omniorb/
+wheelhouse/
+

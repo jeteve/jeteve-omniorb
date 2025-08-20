@@ -11,11 +11,11 @@ class BinaryDistribution(Distribution):
         return True
 
 # Auto-discover All top level .py files in src/
-src_files = [f.stem for f in Path("src").glob("*.py") 
+top_level_modules = [f.stem for f in Path("src").glob("*.py") 
              if not f.name.startswith("_")]
 
 
 setup(
     distclass=BinaryDistribution,
-    py_modules=src_files,
+    py_modules=top_level_modules,
     )

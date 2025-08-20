@@ -14,12 +14,7 @@ include = ["*"]  # Include all packages
 namespaces = false
 
 [tool.setuptools.package-data]
-your_package = ["lib/*"]
-
-[tool.cibuildwheel]
-# Configure for different platforms
-build = ["PYVER-*"]
-skip = ["*-musllinux_*", "*-win32", "pp*"]
+jeteve_omniorb = ["../*.so*"]
 
 [tool.distutils.bdist_wheel]
 plat-name = "manylinux2014_x86_64"

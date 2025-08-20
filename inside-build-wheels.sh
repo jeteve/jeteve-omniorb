@@ -63,3 +63,14 @@ cd jeteve-omniorb
 cp -rvf ${SITE_PACKAGES}/* src/
 
 ${PYTHON} -m build --wheel
+
+LAST_WHEEL=$(ls dist/*.whl | tail -n 1)
+
+auditwheel show ${LAST_WHEEL}
+LD_LIBRARY_PATH=${OMNIORB_DESTDIR}/usr/local/lib/:$LD_LIBRARY_PATH auditwheel repair ${LAST_WHEEL} -w ../wheelhouse/
+
+LAST_WHEELHOUSE=$(ls ../wheelhouse/*.whl | tail -n 1)
+auditwheel show ${LAST_WHEELHOUSE}
+echo "✅ Wheel built successfully: ${LAST_WHEELHOUSE}"
+echo "✅ All done! Wheels are in wheelhouse/"
+cd ..
