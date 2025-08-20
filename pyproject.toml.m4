@@ -1,6 +1,29 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+# For py_modules, see setup.py
+# py-modules
+
+[tool.setuptools.packages.find]
+where = ["src"]  # Search in src directory
+include = ["*"]  # Include all packages
+namespaces = false
+
+[tool.setuptools.package-data]
+your_package = ["lib/*"]
+
+[tool.cibuildwheel]
+# Configure for different platforms
+build = ["PYVER-*"]
+skip = ["*-musllinux_*", "*-win32", "pp*"]
+
+[tool.distutils.bdist_wheel]
+plat-name = "manylinux2014_x86_64"
+
 
 [project]
 name = "jeteve-omniorb"
@@ -26,7 +49,5 @@ Documentation = "https://github.com/jeteve/jeteve-omniorb#readme"
 Issues = "https://github.com/jeteve/jeteve-omniorb/issues"
 Source = "https://github.com/jeteve/jeteve-omniorb"
 
-[tool.distutils.bdist_wheel]
-plat-name = "manylinux2014_x86_64"
 
 [tool.hatch.build.targets.sdist]

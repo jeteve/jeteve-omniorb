@@ -50,9 +50,16 @@ echo "Now building wheels"
 rm -rf jeteve-omniorb
 uvx hatch new "Jeteve OmniORB"
 
-m4 -D VERSION=${OMNIORB_VERSION} -D PYTHON_VERSION=${PYTHON_VERSION} -D PYVER=${PYVER} pyproject.toml.m4 > jeteve-omniorb/pyproject.toml
+m4 -D VERSION=${OMNIORB_VERSION}\
+ -D PYTHON_VERSION=${PYTHON_VERSION}\
+ -D PYVER=${PYVER}\
+ pyproject.toml.m4 > jeteve-omniorb/pyproject.toml
+
+cp -f setup.py jeteve-omniorb/
 rm jeteve-omniorb/src/jeteve_omniorb/__about__.py
 
 cd jeteve-omniorb
-uvx hatch build -t wheel
 
+cp -rvf ${SITE_PACKAGES}/* src/
+
+${PYTHON} -m build --wheel
