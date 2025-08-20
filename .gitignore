@@ -8,5 +8,7 @@ jeteve-omniorb/
 wheelhouse/
 .pki
 example/**
+*.log
+
 
 

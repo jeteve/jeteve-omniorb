@@ -4,6 +4,14 @@ This is a standard python wheel packaging OmniORB/OmniORBpy for easy use from py
 
 See original software here: https://omniorb.sourceforge.io/
 
+# Why jeteve_omniorb
+
+- Packages latest stable OmniOrb
+- Batteries included. Get started with OmniORB examples right after installation. (See `example/`)
+- Support for legacy glibc 2.17+ because we don't all have new shiny OSes.
+- Support for python from 3.10 to 3.13
+- Latest stable OmniOrb Automatically tested using omniorb's example from https://omniorb.sourceforge.io/omnipy43/omniORBpy/
+
 ## Batteries included
 
 We aim at supporting the full Python example from omniorb out of the box:

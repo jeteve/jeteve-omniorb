@@ -3,6 +3,8 @@
 PYVER=$1
 OMNIORB_VERSION=$2
 
+LOG="/workdir/log-${PYVER}-${OMNIORB_VERSION}.log"
+
 set -e
 
 echo "Building OmniORB $OMNIORB_VERSION and wheels for Python $PYVER"
@@ -13,28 +15,42 @@ export HOME=/workdir
 echo "Available Pythons:"
 ls /opt/python/
 
+export PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python
+echo "Using python $PYTHON"
+
 
 OMNIORB_DESTDIR=/workdir/dist/${PYVER}/omniORB-${OMNIORB_VERSION}
+
+rm -rf omniORB-${OMNIORB_VERSION}
+echo "🛜 Downloading omniORB ${OMNIORB_VERSION}"
 curl -L https://downloads.sourceforge.net/omniorb/omniORB-${OMNIORB_VERSION}.tar.bz2 | tar xj
 cd omniORB-${OMNIORB_VERSION}
 
-PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python ./configure --with-openssl=/usr
-make -j
+echo "📐 Configuring omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
+PYTHON=$PYTHON ./configure --with-openssl=/usr 2>&1 | pv > $LOG
+echo "🛠️ Making omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
+make -j 2>&1 | pv >> $LOG
+echo "💾 Installing omniORB ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
+rm -rf ${OMNIORB_DESTDIR}
 mkdir -p ${OMNIORB_DESTDIR}
-make install DESTDIR=${OMNIORB_DESTDIR}
+make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv >> $LOG
 
 echo "✅ omniORB installed at ${OMNIORB_DESTDIR}"
 cd ..
 
+rm -rf omniORBpy-${OMNIORB_VERSION} 
 echo "Now building omniORBpy"
+echo "🛜 Downloading omniORBpy ${OMNIORB_VERSION}"
 curl -L https://downloads.sourceforge.net/omniorb/omniORBpy/omniORBpy-${OMNIORB_VERSION}/omniORBpy-${OMNIORB_VERSION}.tar.bz2 | tar xj
 cd omniORBpy-${OMNIORB_VERSION}
 
-export PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python
 
-./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local
-make -j
-make install DESTDIR=${OMNIORB_DESTDIR}
+echo "📐 Configuring omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} and omniORB ${OMNIORB_DESTDIR}"
+PYTHON=$PYTHON ./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | pv -l >> $LOG
+echo "🛠️ Making omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON}"
+make -j 2>&1 | pv -l >> $LOG
+echo "💾 Installing omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
+make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -l >> $LOG
 echo "✅ omniORBpy installed at ${OMNIORB_DESTDIR}"
 cd ..
 
@@ -47,7 +63,7 @@ if [ ! -d "${SITE_PACKAGES}" ]; then
 fi
 
 echo "✅ Found site-packages at ${SITE_PACKAGES}"
-echo "Now building wheels"
+echo "☸️ Now building wheels"
 
 # Package wheel
 rm -rf jeteve-omniorb
@@ -62,8 +78,12 @@ cp -f setup.py jeteve-omniorb/
 rm jeteve-omniorb/src/jeteve_omniorb/__about__.py
 
 cd jeteve-omniorb
+mkdir -p src/jeteve_omniorb
+cp ../wrapper.py src/jeteve_omniorb/
 
-cp -rvf ${SITE_PACKAGES}/* src/
+mkdir -p src/jeteve_omniorb/bin/
+cp -rvf ${OMNIORB_DESTDIR}/usr/local/bin/* src/jeteve_omniorb/bin/ 2>&1 | pv -l >> $LOG
+cp -rvf ${SITE_PACKAGES}/* src/ | pv -l >> $LOG
 
 ${PYTHON} -m build --wheel
 
