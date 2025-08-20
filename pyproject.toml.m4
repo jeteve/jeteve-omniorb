@@ -14,7 +14,9 @@ include = ["*"]  # Include all packages
 namespaces = false
 
 [tool.setuptools.package-data]
-jeteve_omniorb = ["../*.so*"]
+# The SOs from omniorb Python and the bins from omniorb.
+# These will get fixed by `auditwheel repair` (See inside-build-wheels.sh)
+jeteve_omniorb = ["../*.so*" , "bin/*"]
 
 [tool.distutils.bdist_wheel]
 plat-name = "manylinux2014_x86_64"
@@ -26,7 +28,7 @@ name = "jeteve-omniorb"
 version = "VERSION.post1" # omniORB VERSION, packaging revision 1
 description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
-requires-python = "==PYTHON_VERSION"
+requires-python = ">=PYTHON_VERSION"
 license = "MIT"
 keywords = []
 authors = [
@@ -45,6 +47,7 @@ dependencies = []
 
 [project.scripts]
 omniidl = "omniidl.main:main"
+omnicpp = "jeteve_omniorb.wrapper:run_omnicpp"
 
 [project.urls]
 Documentation = "https://github.com/jeteve/jeteve-omniorb#readme"

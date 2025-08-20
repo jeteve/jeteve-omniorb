@@ -7,5 +7,6 @@ dist/
 jeteve-omniorb/
 wheelhouse/
 .pki
+example/**
 
 
