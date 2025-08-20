@@ -9,6 +9,8 @@ wheelhouse/
 .pki
 example/**
 *.log
+.venv
+
 
 
 
