@@ -18,6 +18,10 @@ ls /opt/python/
 export PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python
 echo "Using python $PYTHON"
 
+# from cp112 onwards, we need to install setuptools first
+if [[ $PYVER -ge "cp112" ]]; then
+    $PYTHON -m pip install setuptools
+fi
 
 OMNIORB_DESTDIR=/workdir/dist/${PYVER}/omniORB-${OMNIORB_VERSION}
 

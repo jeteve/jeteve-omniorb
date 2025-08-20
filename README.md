@@ -4,13 +4,22 @@ This is a standard python wheel packaging OmniORB/OmniORBpy for easy use from py
 
 See original software here: https://omniorb.sourceforge.io/
 
+# Installation
+
+This installs like a standard pypi package.
+
+See https://pypi.org/project/jeteve-omniorb 
+
 # Why jeteve_omniorb
 
-- Packages latest stable OmniOrb
-- Batteries included. Get started with OmniORB examples right after installation. (See `example/`)
+- Just install a Python package, no more special OmniORB compilation on your platform.
+- Packages latest stable OmniORB.
+- Batteries included. Get started with OmniORB examples right after installation. See `example/` and/or https://omniorb.sourceforge.io/omnipy43/omniORBpy.
 - Support for legacy glibc 2.17+ because we don't all have new shiny OSes.
-- Support for python from 3.10 to 3.13
-- Latest stable OmniOrb Automatically tested using omniorb's example from https://omniorb.sourceforge.io/omnipy43/omniORBpy/
+- Support for python from 3.10 to 3.13.
+- Latest stable OmniOrb Automatically tested using omniorb's example from https://omniorb.sourceforge.io/omnipy43/omniORBpy/ .
+- Tested to work with `uvx` if you want to just run `omniidl` or `omniNames`.
+- cute emojis in shell scripts.
 
 ## Batteries included
 
@@ -20,7 +29,7 @@ https://omniorb.sourceforge.io/omnipy43/omniORBpy/omniORBpy002.html#sec10
 
 In particular, that means that this packages the binary `omnicpp` (OmniORBs take on a C Preprocessor) coming from the C/C++ OmniORB library.
 
-
+This is tested as part of the building process.
 
 # How to build
 
@@ -28,9 +37,7 @@ Run ```build-wheels.sh``` You only need docker
 
 # Version management
 
-For now this is manual.
-
-This would produce 
+For now this is manual. Don't forget to update `pyproject.toml.m4`
 
 # Development principles
 
@@ -52,4 +59,7 @@ uvx twine check wheelhouse/*
 uvx twine upload --repository testpypi wheelhouse/*
 
 3) Check you can download and execute
-uvx --from jeteve_omniorb==4.3.3.post1  --index-url https://test.pypi.org/simple/ omniidl -u
+uvx -n -p 3.13 --from "jeteve_omniorb~=4.3.3"  --index-url https://test.pypi.org/simple/ omnicpp -h
+uvx -n -p 3.12 --from "jeteve_omniorb~=4.3.3"  --index-url https://test.pypi.org/simple/ omnicpp -h
+uvx -n -p 3.11 --from "jeteve_omniorb~=4.3.3"  --index-url https://test.pypi.org/simple/ omnicpp -h
+uvx -n -p 3.10 --from "jeteve_omniorb~=4.3.3"  --index-url https://test.pypi.org/simple/ omnicpp -h

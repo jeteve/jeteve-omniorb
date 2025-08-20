@@ -25,10 +25,10 @@ plat-name = "manylinux2014_x86_64"
 [project]
 name = "jeteve-omniorb"
 # PEP 440 - PyPI compatible See https://peps.python.org/pep-0440/
-version = "VERSION.post1" # omniORB VERSION, packaging revision 1
+version = "VERSION.post2" # omniORB VERSION, packaging revision 2
 description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
-requires-python = "~=PYTHON_VERSION"
+requires-python = ">=3.10"
 license = "MIT"
 keywords = []
 authors = [
@@ -37,7 +37,6 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: PYTHON_VERSION",
   "Programming Language :: Python :: Implementation :: CPython",
   "Topic :: Software Development :: Libraries",
   "Topic :: Software Development :: Object Brokering",

@@ -5,9 +5,10 @@ docker build . --iidfile .docker-image-id
 
 docker run --rm -v $(pwd):/workdir $(cat .docker-image-id) echo "✅ Docker image built successful."
 
-SKIP_VERSIONS="cp312_4.2.6 cp313_4.2.6"
+#SKIP_VERSIONS="cp312_4.2.6 cp313_4.2.6"
+SKIP_VERSIONS=""
 
-for PYVER in cp310 cp311 cp312 cp313; do
+for PYVER in cp312 cp313 cp310 cp311; do
     for OMNIORB_VERSION in 4.2.6 4.3.3; do
         if [[ $SKIP_VERSIONS =~ "${PYVER}_${OMNIORB_VERSION}"  ]]; then
             echo "Skipping Python $PYVER with OmniORB $OMNIORB_VERSION"
