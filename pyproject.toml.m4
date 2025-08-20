@@ -22,8 +22,8 @@ plat-name = "manylinux2014_x86_64"
 
 [project]
 name = "jeteve-omniorb"
-version = "VERSION"
-description = ''
+version = "VERSION.post1" # omniORB VERSION, packaging revision 1
+description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
 requires-python = "==PYTHON_VERSION"
 license = "MIT"
@@ -34,8 +34,11 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: PYTHON_VERSION",
   "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Object Brokering",
+  "Topic :: Software Development :: Object Brokering :: CORBA"
 ]
 dependencies = []
 
