@@ -20,5 +20,8 @@ def run_binary(binary_name):
 def run_omnicpp():
     return run_binary("omnicpp")
 
+def run_omniNames():
+    return run_binary("omniNames")
+
 if __name__ == "__main__":
     sys.exit(run_omnicpp())

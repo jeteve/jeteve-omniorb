@@ -48,6 +48,7 @@ dependencies = []
 [project.scripts]
 omniidl = "omniidl.main:main"
 omnicpp = "jeteve_omniorb.wrapper:run_omnicpp"
+omniNames = "jeteve_omniorb.wrapper:run_omniNames"
 
 [project.urls]
 Documentation = "https://github.com/jeteve/jeteve-omniorb#readme"

@@ -6,7 +6,7 @@ import os
 
 class Echo_i (Example__POA.Echo):
     def echoString(self, mesg):
-        print("echoString() called with message:", mesg)
+        print("Server - echoString() called with message:", mesg)
         return f"Echoed {mesg}"
   
 orb = CORBA.ORB_init(sys.argv, CORBA.ORB_ID)
