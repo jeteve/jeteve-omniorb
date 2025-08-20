@@ -12,5 +12,6 @@ uv pip install -n --no-index --find-links=wheelhouse/ "jeteve_omniorb>=4.3.3.pos
 cd example
 echo "BLA" | omnicpp
 omniidl -bpython example_echo.idl
+python example1.py
 
 

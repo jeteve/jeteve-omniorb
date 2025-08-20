@@ -4,6 +4,16 @@ This is a standard python wheel packaging OmniORB/OmniORBpy for easy use from py
 
 See original software here: https://omniorb.sourceforge.io/
 
+## Batteries included
+
+We aim at supporting the full Python example from omniorb out of the box:
+
+https://omniorb.sourceforge.io/omnipy43/omniORBpy/omniORBpy002.html#sec10
+
+In particular, that means that this packages the binary `omnicpp` (OmniORBs take on a C Preprocessor) coming from the C/C++ OmniORB library.
+
+
+
 # How to build
 
 Run ```build-wheels.sh``` You only need docker
