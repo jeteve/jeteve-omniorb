@@ -6,7 +6,7 @@ import CosNaming, Example, Example__POA
 # Define an implementation of the Echo interface
 class Echo_i (Example__POA.Echo):
     def echoString(self, mesg):
-        print("echoString() called with message:", mesg)
+        print(f"{__file__} echoString() called with message:", mesg)
         return mesg
 
 # Initialise the ORB and find the root POA
