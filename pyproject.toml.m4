@@ -42,10 +42,10 @@ classifiers = [
 ]
 dependencies = []
 
+[project.scripts]
+omniidl = "omniidl.main:main"
+
 [project.urls]
 Documentation = "https://github.com/jeteve/jeteve-omniorb#readme"
 Issues = "https://github.com/jeteve/jeteve-omniorb/issues"
 Source = "https://github.com/jeteve/jeteve-omniorb"
-
-
-[tool.hatch.build.targets.sdist]
