@@ -7,7 +7,7 @@ dist/
 jeteve-omniorb/
 wheelhouse/
 .pki
-example/**
+example_*/**
 *.log
 .venv
 
