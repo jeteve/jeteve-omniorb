@@ -17,13 +17,7 @@ echo "✅ omniNames works"
 
 # Follow the example from https://omniorb.sourceforge.io/omnipy43/omniORBpy/omniORBpy002.html#sec10
 
-if [[ $OMNIORB_VERSION == "4.2.6" ]]; then
-    echo "Using omniidl from 4.2.6"
-    omniidl example_echo.idl
-else
-    echo "Using omniidl from 4.3.3"
-    omniidl -bpython example_echo.idl
-fi
+omniidl -bpython example_echo.idl
 
 echo "Running example1"
 python example1.py
