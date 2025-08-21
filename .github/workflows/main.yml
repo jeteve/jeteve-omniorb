@@ -5,6 +5,13 @@ on:
 jobs:
   build-test-omniorb:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [ "3.13" ]
+        include:
+          - pyver: "3.13"
+            pyabi: cp313
+            
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,11 +37,11 @@ jobs:
         with:
           image: my-builder:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
-          run: bash /workdir/inside-build-wheels.sh "cp313" "4.3.3"
+          run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} "4.3.3"
 
       - name: Test wheel
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
-          run: bash /workdir/inside-test-wheels.sh "3.13" "4.3.3"
+          run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} "4.3.3"
