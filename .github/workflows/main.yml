@@ -56,6 +56,6 @@ jobs:
       - name: Save wheel as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wheels
+          name: wheel-${{ matrix.pyver }}
           path: wheelhouse/
           
