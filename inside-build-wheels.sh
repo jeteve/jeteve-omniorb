@@ -81,6 +81,8 @@ m4 -D VERSION=${OMNIORB_VERSION}\
 cp -f setup.py jeteve-omniorb/
 rm jeteve-omniorb/src/jeteve_omniorb/__about__.py
 
+cat README.md >> jeteve-omniorb/README.md
+
 cd jeteve-omniorb
 mkdir -p src/jeteve_omniorb
 cp ../wrapper.py src/jeteve_omniorb/

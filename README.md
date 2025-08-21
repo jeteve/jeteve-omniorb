@@ -1,4 +1,6 @@
-# About
+
+
+# About jeteve-omniorb
 
 This is a standard python wheel packaging OmniORB/OmniORBpy for easy use from python projects.
 
@@ -48,7 +50,7 @@ compatibility with glibc 2.17.
 
 Other architectures will come later. Maybe.
 
-# How to upload
+## Dev notes - how to upload
 
 1) Check all wheels with twine (using uvx is recommended)
 
