@@ -24,3 +24,10 @@ jobs:
           options: -v ${{ github.workspace }}:/workdir
           run: |
             echo "Success!"
+
+      - name: "Build wheel"
+        uses: addnab/docker-run-action@v3
+        with:
+          image: my-builder:${{ github.sha }}
+          options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          run: bash /workdir/inside-build-wheels.sh "cp133" "4.3.3"
