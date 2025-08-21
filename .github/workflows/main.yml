@@ -15,5 +15,12 @@ jobs:
       - name: Build Docker builder image
         run: |
           docker build \
-          --tag builder:${{ github.sha }} \
+          --tag my-builder:${{ github.sha }} \
           . \
+      - name: Test docker image
+        uses: addnab/docker-run-action@v3
+        with:
+          image: my-builder:${{ github.sha }}
+          options: -v ${{ github.workspace }}:/workdir
+          run: |
+            echo "Success!"
