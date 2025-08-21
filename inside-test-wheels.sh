@@ -7,7 +7,7 @@ set -e
 
 uv venv -p $PYTHON_VERSION --clear
 source .venv/bin/activate
-uv pip install -n --no-index --find-links=wheelhouse/ "jeteve_omniorb>=$OMNIORB_VERSION"
+uv pip install -n --no-index --find-links=wheelhouse/ "jeteve_omniorb~=$OMNIORB_VERSION"
 
 cd example_${OMNIORB_VERSION}
 echo "✅ Omnicpp works" | omnicpp
