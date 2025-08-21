@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        omniorb_version: [ "4.3.3" , "4.2.6" ]
         pyver: [ "3.13", "3.12" , "3.11" , "3.10" ]
         include:
           - pyver: "3.13"
@@ -44,18 +45,18 @@ jobs:
         with:
           image: my-builder:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
-          run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} "4.3.3"
+          run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} ${{ matrix.omniorb_version }}
 
       - name: Test wheel
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
-          run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} "4.3.3"
+          run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} ${{ matrix.omniorb_version }}
 
       - name: Save wheel as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wheel-${{ matrix.pyver }}
+          name: wheel-${{ matrix.omniorb_version }}-${{ matrix.pyver }}
           path: wheelhouse/
           
