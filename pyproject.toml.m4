@@ -28,7 +28,7 @@ name = "jeteve-omniorb"
 version = "VERSION.post2" # omniORB VERSION, packaging revision 2
 description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 license = "MIT"
 keywords = []
 authors = [
