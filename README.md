@@ -18,7 +18,7 @@ See https://pypi.org/project/jeteve-omniorb
 - Packages latest stable OmniORB.
 - Batteries included. Get started with OmniORB examples right after installation. See `example/` and/or https://omniorb.sourceforge.io/omnipy43/omniORBpy.
 - Support for legacy glibc 2.17+ because we don't all have new shiny OSes.
-- Support for python from 3.10 to 3.13.
+- CI Tested Support for python from 3.10 to 3.13.
 - Latest stable OmniOrb Automatically tested using omniorb's example from https://omniorb.sourceforge.io/omnipy43/omniORBpy/ .
 - Tested to work with `uvx` if you want to just run `omniidl` or `omniNames`.
 - cute emojis in shell scripts.
