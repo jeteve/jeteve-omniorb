@@ -47,8 +47,8 @@ jobs:
           run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} "4.3.3"
 
       - name: Save wheel as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
-          path: wheelhouse
+          path: wheelhouse/
           
