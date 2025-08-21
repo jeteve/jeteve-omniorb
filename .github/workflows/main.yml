@@ -45,3 +45,10 @@ jobs:
           image: my-builder:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} "4.3.3"
+
+      - name: Save wheel as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheels
+          path: wheelhouse
+          
