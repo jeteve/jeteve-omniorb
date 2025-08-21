@@ -31,3 +31,10 @@ jobs:
           image: my-builder:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-build-wheels.sh "cp313" "4.3.3"
+
+      - name: Test wheel
+        uses: addnab/docker-run-action@v3
+        with:
+          image: my-builder:${{ github.sha }}
+          options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          run: bash /workdir/inside-test-wheels.sh "3.13" "4.3.3"
