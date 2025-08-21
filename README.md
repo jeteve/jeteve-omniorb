@@ -50,6 +50,20 @@ compatibility with glibc 2.17.
 
 Other architectures will come later. Maybe.
 
+## Dev notes - Building and testing a specific version:
+
+Build:
+
+```bash
+docker run -e HOME=/workdir -u $(id -u):$(id -g) --rm -v $(pwd):/workdir $(cat .docker-image-id) bash /workdir/inside-build-wheels.sh "cp312" "4.2.6"
+
+```
+
+Test:
+```bash
+docker run -e HOME=/workdir -u $(id -u):$(id -g) --rm -v $(pwd):/workdir $(cat .docker-image-id) bash /workdir/inside-test-wheels.sh "3.12" "4.2.6"
+```
+
 ## Dev notes - how to upload
 
 1) Check all wheels with twine (using uvx is recommended)

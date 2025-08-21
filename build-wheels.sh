@@ -9,7 +9,7 @@ docker run --rm -v $(pwd):/workdir $(cat .docker-image-id) echo "✅ Docker imag
 SKIP_VERSIONS=""
 
 for PYVER in cp312 cp313 cp310 cp311; do
-    for OMNIORB_VERSION in 4.2.6 4.3.3; do
+    for OMNIORB_VERSION in 4.3.3; do
         if [[ $SKIP_VERSIONS =~ "${PYVER}_${OMNIORB_VERSION}"  ]]; then
             echo "Skipping Python $PYVER with OmniORB $OMNIORB_VERSION"
             continue

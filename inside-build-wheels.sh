@@ -49,13 +49,13 @@ curl -L https://downloads.sourceforge.net/omniorb/omniORBpy/omniORBpy-${OMNIORB_
 cd omniORBpy-${OMNIORB_VERSION}
 
 
-echo "📐 Configuring omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} and omniORB ${OMNIORB_DESTDIR}"
+echo "📐 Configuring omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} and omniORB ${OMNIORB_DESTDIR}" | tee -a ${LOG}
 PYTHON=$PYTHON ./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | pv -l >> $LOG
-echo "🛠️ Making omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON}"
+echo "🛠️ Making omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON}" | tee -a ${LOG}
 make -j 2>&1 | pv -l >> $LOG
-echo "💾 Installing omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
+echo "💾 Installing omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}" | tee -a ${LOG}
 make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -l >> $LOG
-echo "✅ omniORBpy installed at ${OMNIORB_DESTDIR}"
+echo "✅ omniORBpy installed at ${OMNIORB_DESTDIR}" | tee -a ${LOG}
 cd ..
 
 PYTHON_VERSION=$($PYTHON -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
