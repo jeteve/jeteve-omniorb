@@ -23,6 +23,9 @@ jobs:
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.2.6"
+          - pyver: "3.9"
+            pyabi: cp39
+            omniorb_version: "4.2.6"
 
 
             
