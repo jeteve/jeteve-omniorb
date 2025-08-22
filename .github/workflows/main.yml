@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensures all tags and history are available
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -57,6 +59,7 @@ jobs:
           image: my-builder:${{ github.sha }}
           options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir
           run: |
+            echo "Running as UID: $(id -u), GID: $(id -g)"
             echo "Success!"
 
       - name: "Build wheel"
