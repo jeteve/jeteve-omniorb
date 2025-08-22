@@ -87,14 +87,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@@v4
         with:
+          pattern: wheel-*
           path: wheelhouses/
+          merge-multiple: true
 
       - name: List and consolidate wheels
         run: |
           ls -l wheelhouses/
-          mkdir -p wheelhouse
-          find wheelhouses/ -name "*.whl" -exec cp {} wheelhouse/
-          ls -l wheelhouse/
+
+      - name: Save all wheels as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheelhouse
+          path: wheelhouse/
+
 
