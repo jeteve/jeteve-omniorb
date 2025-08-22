@@ -3,6 +3,16 @@
 PYVER=$1
 OMNIORB_VERSION=$2
 
+POSTN=$(git describe --tags | cut -d- -f1)
+DEVN=$(git describe --tags | cut -d- -f2)
+
+POSTN_DOT_DEVN="${POSTN}"
+if [ -n "$DEVN" ]; then
+    POSTN_DOT_DEVN="${POSTN}.dev${DEVN}"
+fi
+# According to https://packaging.python.org/en/latest/specifications/version-specifiers/#version-specifiers
+echo "🎁 Packaging version will be '${OMNIORB_VERSION}.${POSTN_DOT_DEVN}'"
+
 LOG="/workdir/log-${PYVER}-${OMNIORB_VERSION}.log"
 PV_OPTS="-betlap -i 10"
 
@@ -34,7 +44,7 @@ cd omniORB-${OMNIORB_VERSION}
 echo "📐 Configuring omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
 PYTHON=$PYTHON ./configure --with-openssl=/usr 2>&1 | pv -s 300 $PV_OPTS > $LOG
 echo "🛠️ Making omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
-make -j 2>&1 | pv -s 5000 $PV_OPTS >> $LOG
+make -j 2>&1 # | pv -s 5000 $PV_OPTS >> $LOG
 echo "💾 Installing omniORB ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
 rm -rf ${OMNIORB_DESTDIR}
 mkdir -p ${OMNIORB_DESTDIR}
@@ -77,6 +87,7 @@ uvx hatch new "Jeteve OmniORB"
 m4 -D VERSION=${OMNIORB_VERSION}\
  -D PYTHON_VERSION=${PYTHON_VERSION}\
  -D PYVER=${PYVER}\
+ -D POSTN_DOT_DEVN=${POSTN_DOT_DEVN} \
  pyproject.toml.m4 > jeteve-omniorb/pyproject.toml
 
 cp -f setup.py jeteve-omniorb/
@@ -101,7 +112,7 @@ echo "🪛 Reparing wheel with auditwheel"
 auditwheel show ${LAST_WHEEL}
 LD_LIBRARY_PATH=${OMNIORB_DESTDIR}/usr/local/lib/:$LD_LIBRARY_PATH auditwheel repair ${LAST_WHEEL} -w ../wheelhouse/
 
-LAST_WHEELHOUSE=$(ls ../wheelhouse/*.whl | tail -n 1)
+LAST_WHEELHOUSE=$(ls -rt ../wheelhouse/*.whl | tail -n 1)
 auditwheel show ${LAST_WHEELHOUSE}
 echo "✅ Wheel built successfully: ${LAST_WHEELHOUSE}"
 cd ..
