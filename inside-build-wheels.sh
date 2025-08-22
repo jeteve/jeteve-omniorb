@@ -16,7 +16,7 @@ echo "🎁 Packaging version will be '${OMNIORB_VERSION}.${POSTN_DOT_DEVN}'"
 LOG="/workdir/log-${PYVER}-${OMNIORB_VERSION}.log"
 PV_OPTS="-betlap -i 10"
 
-set -e
+set -xe
 
 echo "Building OmniORB $OMNIORB_VERSION and wheels for Python $PYVER"
 id
@@ -44,7 +44,7 @@ cd omniORB-${OMNIORB_VERSION}
 echo "📐 Configuring omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
 PYTHON=$PYTHON ./configure --with-openssl=/usr 2>&1 | pv -s 300 $PV_OPTS > $LOG
 echo "🛠️ Making omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
-make -j 2>&1 # | pv -s 5000 $PV_OPTS >> $LOG
+make -j 2>&1 | pv -s 5000 $PV_OPTS >> $LOG
 echo "💾 Installing omniORB ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
 rm -rf ${OMNIORB_DESTDIR}
 mkdir -p ${OMNIORB_DESTDIR}
@@ -104,9 +104,11 @@ cp -rvf ${OMNIORB_DESTDIR}/usr/local/bin/* src/jeteve_omniorb/bin/ 2>&1 | pv -s 
 cp -rvf ${SITE_PACKAGES}/* src/ | pv  -s 130 $PV_OPTS >> $LOG
 
 echo "📦 Building wheel with Python ${PYTHON}" | tee -a ${LOG}
-${PYTHON} -m build --wheel 2>&1 | pv -s 250 $PV_OPTS >> $LOG
+${PYTHON} -m build --wheel 2>&1 # | pv -s 250 $PV_OPTS >> $LOG
 
 LAST_WHEEL=$(ls dist/*.whl | tail -n 1)
+
+echo "Found wheel: ${LAST_WHEEL}" | tee -a ${LOG}
 
 echo "🪛 Reparing wheel with auditwheel"
 auditwheel show ${LAST_WHEEL}
