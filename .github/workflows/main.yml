@@ -81,4 +81,20 @@ jobs:
         with:
           name: wheel-${{ matrix.omniorb_version }}-${{ matrix.pyver }}
           path: wheelhouse/
-          
+  
+  gather-wheels:
+    needs: build-test-omniorb
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: wheelhouses/
+
+      - name: List and consolidate wheels
+        run: |
+          ls -l wheelhouses/
+          mkdir -p wheelhouse
+          find wheelhouses/ -name "*.whl" -exec cp {} wheelhouse/
+          ls -l wheelhouse/
+
