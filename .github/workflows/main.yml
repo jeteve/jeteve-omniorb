@@ -56,14 +56,14 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: -u $(id -u):$(id -g) -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          options: --user $(id -u):$(id -g) -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} ${{ matrix.omniorb_version }}
 
       - name: Test wheel
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: -u $(id -u):$(id -g) -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          options: --user $(id -u):$(id -g) -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} ${{ matrix.omniorb_version }}
 
       - name: Save wheel as artifact
