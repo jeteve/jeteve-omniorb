@@ -6,7 +6,7 @@ OMNIORB_VERSION=$2
 set -xe
 
 POSTN=$(git describe --tags | cut -d- -f1)
-DEVN=$(git describe --tags | cut -d- -f2)
+DEVN=$(git describe --tags | cut -s -d'-' -f2)
 
 POSTN_DOT_DEVN="${POSTN}"
 if [ -n "$DEVN" ]; then
