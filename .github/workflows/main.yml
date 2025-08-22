@@ -11,15 +11,27 @@ jobs:
           - pyver: "3.13"
             pyabi: cp313
             omniorb_version: "4.3.3"
+          - pyver: "3.13"
+            pyabi: cp313
+            omniorb_version: "4.3.2"
           - pyver: "3.12"
             pyabi: cp312
             omniorb_version: "4.3.3"
+          - pyver: "3.12"
+            pyabi: cp312
+            omniorb_version: "4.3.2"
           - pyver: "3.11"
             pyabi: cp311
             omniorb_version: "4.3.3"
+          - pyver: "3.11"
+            pyabi: cp311
+            omniorb_version: "4.3.2"
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.3.3"
+          - pyver: "3.10"
+            pyabi: cp310
+            omniorb_version: "4.3.2"
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.2.6"
