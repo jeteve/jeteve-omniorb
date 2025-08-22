@@ -29,7 +29,7 @@ version = "VERSION.post2" # omniORB VERSION, packaging revision 2
 description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT"
+license = {text = "MIT"}
 keywords = []
 authors = [
   { name = "Jerome Eteve", email = "jerome.eteve@gmail.com" },
