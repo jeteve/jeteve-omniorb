@@ -44,11 +44,18 @@ jobs:
           docker build \
           --tag my-builder:${{ github.sha }} \
           . \
+
+      - name: Get user info
+        id: user-info
+        run: |
+          echo "uid=$(id -u)" >> $GITHUB_OUTPUT
+          echo "gid=$(id -g)" >> $GITHUB_OUTPUT
+        
       - name: Test docker image
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: "--user $(id -u):$(id -g) -v ${{ github.workspace }}:/workdir"
+          options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir
           run: |
             echo "Success!"
 
@@ -56,14 +63,14 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: "--user $(id -u):$(id -g) -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir"
+          options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} ${{ matrix.omniorb_version }}
 
       - name: Test wheel
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: "--user $(id -u):$(id -g) -v ${{ github.workspace }}:/workdir -e HOME=/workdir"
+          options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} ${{ matrix.omniorb_version }}
 
       - name: Save wheel as artifact
