@@ -12,13 +12,14 @@ This installs like a standard pypi package.
 
 See https://pypi.org/project/jeteve-omniorb 
 
-# Why jeteve_omniorb
+# Why jeteve_omniorb?
 
 - Just install a Python package, no more special OmniORB compilation on your platform.
+- Works with uv/venv etc..
+- CI Tested Support for cpython from 3.8 to 3.13 and pypy 3.11
 - Packages latest stable OmniORB.
 - Batteries included. Get started with OmniORB examples right after installation. See `example/` and/or https://omniorb.sourceforge.io/omnipy43/omniORBpy.
 - Support for legacy glibc 2.17+ because we don't all have new shiny OSes.
-- CI Tested Support for python from 3.8 to 3.13.
 - Stable OmniOrb versions Automatically tested using omniorb's examples.
 - Tested to work with `uvx` if you want to just run `omniidl` or `omniNames`.
 - cute emojis in shell scripts.

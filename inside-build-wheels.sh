@@ -3,6 +3,11 @@
 PYVER=$1
 OMNIORB_VERSION=$2
 
+# List of valid python in the manylinux image:
+# cp310-cp310  cp313-cp313   cp314-cp314t  pp310-pypy310_pp73
+# cp311-cp311  cp313-cp313t  cp38-cp38	 pp311-pypy311_pp73
+# cp312-cp312  cp314-cp314   cp39-cp39
+
 set -xe
 
 POSTN=$(git describe --tags | cut -d- -f1)
@@ -30,7 +35,7 @@ export HOME=/workdir
 echo "Available Pythons:"
 ls /opt/python/
 
-export PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python
+export PYTHON=/opt/python/${PYVER}/bin/python
 echo "Using python $PYTHON"
 
 
