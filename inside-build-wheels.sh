@@ -3,6 +3,8 @@
 PYVER=$1
 OMNIORB_VERSION=$2
 
+set -xe
+
 POSTN=$(git describe --tags | cut -d- -f1)
 DEVN=$(git describe --tags | cut -d- -f2)
 
@@ -12,6 +14,8 @@ if [ -n "$DEVN" ]; then
 fi
 # According to https://packaging.python.org/en/latest/specifications/version-specifiers/#version-specifiers
 echo "🎁 Packaging version will be '${OMNIORB_VERSION}.${POSTN_DOT_DEVN}'"
+
+echo "==${OMNIORB_VERSION}.${POSTN_DOT_DEVN}" | uvx --with packaging python -c 'import packaging.specifiers as s; s.SpecifierSet(input())'
 
 LOG="/workdir/log-${PYVER}-${OMNIORB_VERSION}.log"
 PV_OPTS="-betlap -i 10"
@@ -28,6 +32,10 @@ ls /opt/python/
 
 export PYTHON=/opt/python/${PYVER}-${PYVER}/bin/python
 echo "Using python $PYTHON"
+
+
+$PYTHON -m pip install packaging
+
 
 # from cp112 onwards, we need to install setuptools first
 if [[ $PYVER -ge "cp112" ]]; then
