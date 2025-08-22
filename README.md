@@ -55,13 +55,13 @@ Other architectures will come later. Maybe.
 Build:
 
 ```bash
-docker run -e HOME=/workdir -u $(id -u):$(id -g) --rm -v $(pwd):/workdir $(cat .docker-image-id) bash /workdir/inside-build-wheels.sh "cp312" "4.2.6"
+docker run -t -e HOME=/workdir -u $(id -u):$(id -g) --rm -v $(pwd):/workdir $(cat .docker-image-id) bash /workdir/inside-build-wheels.sh "cp312" "4.2.6"
 
 ```
 
 Test:
 ```bash
-docker run -e HOME=/workdir -u $(id -u):$(id -g) --rm -v $(pwd):/workdir $(cat .docker-image-id) bash /workdir/inside-test-wheels.sh "3.12" "4.2.6"
+docker run -t -e HOME=/workdir -u $(id -u):$(id -g) --rm -v $(pwd):/workdir $(cat .docker-image-id) bash /workdir/inside-test-wheels.sh "3.12" "4.2.6"
 ```
 
 ## Dev notes - how to upload

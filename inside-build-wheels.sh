@@ -4,6 +4,7 @@ PYVER=$1
 OMNIORB_VERSION=$2
 
 LOG="/workdir/log-${PYVER}-${OMNIORB_VERSION}.log"
+PV_OPTS="-betlap -i 10"
 
 set -e
 
@@ -31,13 +32,13 @@ curl -L https://downloads.sourceforge.net/omniorb/omniORB-${OMNIORB_VERSION}.tar
 cd omniORB-${OMNIORB_VERSION}
 
 echo "📐 Configuring omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
-PYTHON=$PYTHON ./configure --with-openssl=/usr 2>&1 | pv > $LOG
+PYTHON=$PYTHON ./configure --with-openssl=/usr 2>&1 | pv -s 300 $PV_OPTS > $LOG
 echo "🛠️ Making omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
-make -j 2>&1 | pv >> $LOG
+make -j 2>&1 | pv -s 5000 $PV_OPTS >> $LOG
 echo "💾 Installing omniORB ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
 rm -rf ${OMNIORB_DESTDIR}
 mkdir -p ${OMNIORB_DESTDIR}
-make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv >> $LOG
+make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -s 1000 $PV_OPTS >> $LOG
 
 echo "✅ omniORB installed at ${OMNIORB_DESTDIR}"
 cd ..
@@ -50,11 +51,11 @@ cd omniORBpy-${OMNIORB_VERSION}
 
 
 echo "📐 Configuring omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} and omniORB ${OMNIORB_DESTDIR}" | tee -a ${LOG}
-PYTHON=$PYTHON ./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | pv -l >> $LOG
+PYTHON=$PYTHON ./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | pv -s 52 $PV_OPTS >> $LOG
 echo "🛠️ Making omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON}" | tee -a ${LOG}
-make -j 2>&1 | pv -l >> $LOG
+make -j 2>&1 | pv -l 150 $PV_OPTS >> $LOG
 echo "💾 Installing omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}" | tee -a ${LOG}
-make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -l >> $LOG
+make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -l 22 $PV_OPTS >> $LOG
 echo "✅ omniORBpy installed at ${OMNIORB_DESTDIR}" | tee -a ${LOG}
 cd ..
 
@@ -88,13 +89,15 @@ mkdir -p src/jeteve_omniorb
 cp ../wrapper.py src/jeteve_omniorb/
 
 mkdir -p src/jeteve_omniorb/bin/
-cp -rvf ${OMNIORB_DESTDIR}/usr/local/bin/* src/jeteve_omniorb/bin/ 2>&1 | pv -l >> $LOG
-cp -rvf ${SITE_PACKAGES}/* src/ | pv -l >> $LOG
+cp -rvf ${OMNIORB_DESTDIR}/usr/local/bin/* src/jeteve_omniorb/bin/ 2>&1 | pv -s 10 $PV_OPTS >> $LOG
+cp -rvf ${SITE_PACKAGES}/* src/ | pv  -s 130 $PV_OPTS >> $LOG
 
-${PYTHON} -m build --wheel
+echo "📦 Building wheel with Python ${PYTHON}" | tee -a ${LOG}
+${PYTHON} -m build --wheel 2>&1 | pv -s 250 $PV_OPTS >> $LOG
 
 LAST_WHEEL=$(ls dist/*.whl | tail -n 1)
 
+echo "🪛 Reparing wheel with auditwheel"
 auditwheel show ${LAST_WHEEL}
 LD_LIBRARY_PATH=${OMNIORB_DESTDIR}/usr/local/lib/:$LD_LIBRARY_PATH auditwheel repair ${LAST_WHEEL} -w ../wheelhouse/
 

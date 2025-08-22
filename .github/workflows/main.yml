@@ -56,7 +56,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          options: -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} ${{ matrix.omniorb_version }}
 
       - name: Test wheel
