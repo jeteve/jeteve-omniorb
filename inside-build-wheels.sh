@@ -53,9 +53,9 @@ cd omniORBpy-${OMNIORB_VERSION}
 echo "📐 Configuring omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} and omniORB ${OMNIORB_DESTDIR}" | tee -a ${LOG}
 PYTHON=$PYTHON ./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | pv -s 52 $PV_OPTS >> $LOG
 echo "🛠️ Making omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON}" | tee -a ${LOG}
-make -j 2>&1 | pv -l 150 $PV_OPTS >> $LOG
+make -j 2>&1 | pv -s 150 $PV_OPTS >> $LOG
 echo "💾 Installing omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}" | tee -a ${LOG}
-make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -l 22 $PV_OPTS >> $LOG
+make install DESTDIR=${OMNIORB_DESTDIR} 2>&1 | pv -s 22 $PV_OPTS >> $LOG
 echo "✅ omniORBpy installed at ${OMNIORB_DESTDIR}" | tee -a ${LOG}
 cd ..
 
