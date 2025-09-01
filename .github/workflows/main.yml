@@ -8,6 +8,13 @@ jobs:
     strategy:
       matrix:
         include:
+          - pyver: "3.14"
+            pyabi: cp314
+            omniorb_version: "4.3.3"
+          - pyver: "3.14"
+            pyabi: cp314
+            omniorb_version: "4.3.2"
+          - pyver: "3.13"
           - pyver: "3.13"
             pyabi: cp313
             omniorb_version: "4.3.3"
