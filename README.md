@@ -35,11 +35,16 @@ This is tested as part of the building process.
 
 # How to build
 
-Run ```build-wheels.sh``` You only need docker
+In your development environment, run ```build-wheels.sh``` You only need docker.
 
 # Version management
 
-For now this is manual. Don't forget to update `pyproject.toml.m4`
+This generates wheels that are versioned with the version of the packaged
+OmniORB library, and following https://peps.python.org/pep-0440/, it adds
+a `.postN` part that express the fact that this is a new packaging of
+the same software.
+
+From git tags perspective, this specific repo needs to be tagged with `.postN`.
 
 # Development principles
 

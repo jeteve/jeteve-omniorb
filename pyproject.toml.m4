@@ -26,7 +26,7 @@ plat-name = "manylinux2014_x86_64"
 name = "jeteve-omniorb"
 # PEP 440 - PyPI compatible See https://peps.python.org/pep-0440/
 # and https://packaging.python.org/en/latest/specifications/version-specifiers/#version-specifiers
-version = "VERSION.POSTN_DOT_DEVN" # See inside-build-wheels.sh
+version = "VERSION.POSTN_DOT_DEVN" # Comes from OmniOrb version and git tag via inside-build-wheels.sh
 description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
 requires-python = ">=3.8"
