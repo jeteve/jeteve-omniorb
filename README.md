@@ -57,6 +57,35 @@ Other architectures will come later. Maybe.
 
 ## Dev notes - Building and testing a specific version:
 
+Building the build image:
+```
+docker buildx build . --iidfile .docker-image-id
+docker run --rm -v $(pwd):/workdir $(cat .docker-image-id) echo "✅ Docker image built successful."
+```
+
+# For another platform/architecture:
+
+First follow https://docs.docker.com/build/building/multi-platform/
+
+Make sure you install qemu binaries if you want to leverage qemu:
+
+```sh
+docker run --privileged --rm tonistiigi/binfmt --install all
+```
+
+Note that qemu will be very slow. The buildx with multiple build nodes
+providing the different architectures is preferred.
+
+Using the github actions workflow is preferred, as it provides VM on native architectures.
+
+
+```sh
+# See supported architecture in manylinux
+# https://github.com/pypa/manylinux
+docker buildx build --iidfile .docker-image-id --platform linux/arm64 --build-arg MANYLINUX_ARCH=aarch64 .
+docker run --platform linux/arm64  --rm -v $(pwd):/workdir $(cat .docker-image-id) echo "✅ Docker image built successful."
+```
+
 Build:
 
 ```bash
