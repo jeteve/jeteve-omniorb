@@ -11,6 +11,11 @@ jobs:
           - pyver: "3.14"
             pyabi: cp314
             omniorb_version: "4.3.3"
+            docker_platform: linux/arm64
+            manylinux_arch: aarch64
+          - pyver: "3.14"
+            pyabi: cp314
+            omniorb_version: "4.3.3"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
           - pyver: "3.14"
