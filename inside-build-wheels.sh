@@ -46,7 +46,7 @@ OMNIORB_DESTDIR=/workdir/dist/${PYVER}/omniORB-${OMNIORB_VERSION}
 
 rm -rf omniORB-${OMNIORB_VERSION}
 echo "🛜 Downloading omniORB ${OMNIORB_VERSION}"
-curl -L https://downloads.sourceforge.net/omniorb/omniORB-${OMNIORB_VERSION}.tar.bz2 | tar xj
+cat /workdir/vendor/omniORB-${OMNIORB_VERSION}.tar.bz2 | tar xj
 cd omniORB-${OMNIORB_VERSION}
 
 echo "📐 Configuring omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
