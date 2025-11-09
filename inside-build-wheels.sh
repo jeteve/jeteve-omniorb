@@ -96,6 +96,7 @@ m4 -D VERSION=${OMNIORB_VERSION}\
  -D PYTHON_VERSION=${PYTHON_VERSION}\
  -D PYVER=${PYVER}\
  -D POSTN_DOT_DEVN=${POSTN_DOT_DEVN} \
+ -D MANYLINUX_ARCH=${MANYLINUX_ARCH} \
  pyproject.toml.m4 > jeteve-omniorb/pyproject.toml
 
 cp -f setup.py jeteve-omniorb/
