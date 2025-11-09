@@ -50,7 +50,7 @@ cat /workdir/vendor/omniORB-${OMNIORB_VERSION}.tar.bz2 | tar xj
 cd omniORB-${OMNIORB_VERSION}
 
 echo "📐 Configuring omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
-PYTHON=$PYTHON ./configure --with-openssl=/usr 2>&1 | tee -a $LOG
+PYTHON=$PYTHON ./configure --build=${MANYLINUX_ARCH}-unknown-linux-gnu --with-openssl=/usr 2>&1 | tee -a $LOG
 echo "🛠️ Making omniORB ${OMNIORB_VERSION} with Python ${PYTHON}"
 make -j 2>&1 | tee -a ${LOG}
 echo "💾 Installing omniORB ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}"
@@ -69,7 +69,7 @@ cd omniORBpy-${OMNIORB_VERSION}
 
 
 echo "📐 Configuring omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} and omniORB ${OMNIORB_DESTDIR}" | tee -a ${LOG}
-PYTHON=$PYTHON ./configure --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | tee -a  ${LOG}
+PYTHON=$PYTHON ./configure --build=${MANYLINUX_ARCH}-unknown-linux-gnu --with-omniorb=${OMNIORB_DESTDIR}/usr/local 2>&1 | tee -a  ${LOG}
 echo "🛠️ Making omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON}" | tee -a ${LOG}
 make -j 2>&1 | tee -a ${LOG}
 echo "💾 Installing omniORBpy ${OMNIORB_VERSION} with Python ${PYTHON} in ${OMNIORB_DESTDIR}" | tee -a ${LOG}

@@ -11,42 +11,68 @@ jobs:
           - pyver: "3.14"
             pyabi: cp314
             omniorb_version: "4.3.3"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.14"
             pyabi: cp314
             omniorb_version: "4.3.2"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.13"
             pyabi: cp313
             omniorb_version: "4.3.3"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.13"
             pyabi: cp313
             omniorb_version: "4.3.2"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.12"
             pyabi: cp312
             omniorb_version: "4.3.3"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.12"
             pyabi: cp312
             omniorb_version: "4.3.2"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.11"
             pyabi: cp311
             omniorb_version: "4.3.3"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.11"
             pyabi: cp311
             omniorb_version: "4.3.2"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.3.3"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.3.2"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.2.6"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.9"
             pyabi: cp39
             omniorb_version: "4.2.6"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
           - pyver: "3.8"
             pyabi: cp38
             omniorb_version: "4.2.6"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
 
 
             
@@ -66,8 +92,10 @@ jobs:
       - name: Build Docker builder image
         run: |
           docker build \
-          --tag my-builder:${{ github.sha }} \
-          . \
+            --platform ${{ matrix.docker_platform }} \
+            --build-arg MANYLINUX_ARCH=${{ matrix.manylinux_arch }} \
+            --tag my-builder:${{ github.sha }} \
+            . \
 
       - name: Get user info
         id: user-info
@@ -79,7 +107,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir
+          options: --platform ${{ matrix.docker_platform }} --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir
           run: |
             echo "Running as UID: $(id -u), GID: $(id -g)"
             echo "Success!"
@@ -88,14 +116,14 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          options: --platform ${{ matrix.docker_platform }} --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -t -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-build-wheels.sh ${{ matrix.pyabi }} ${{ matrix.omniorb_version }}
 
       - name: Test wheel
         uses: addnab/docker-run-action@v3
         with:
           image: my-builder:${{ github.sha }}
-          options: --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir -e HOME=/workdir
+          options: --platform ${{ matrix.docker_platform }} --user ${{ steps.user-info.outputs.uid }}:${{ steps.user-info.outputs.gid }} -v ${{ github.workspace }}:/workdir -e HOME=/workdir
           run: bash /workdir/inside-test-wheels.sh ${{ matrix.pyver }} ${{ matrix.omniorb_version }}
 
       - name: Save wheel as artifact
