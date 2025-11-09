@@ -19,7 +19,7 @@ namespaces = false
 jeteve_omniorb = ["../*.so*" , "bin/*"]
 
 [tool.distutils.bdist_wheel]
-plat-name = "manylinux2014_MANYLINUX_ARCH"
+plat-name = "MANYLINUX_ARCH"
 
 
 [project]
