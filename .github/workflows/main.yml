@@ -2,9 +2,12 @@ name: Build and test jeteve_omniorb
 on:
   push:  # Triggers on any push to any branch
 
+# See different options for runs-on
+# https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories
+
 jobs:
   build-test-omniorb:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         include:
@@ -13,71 +16,85 @@ jobs:
             omniorb_version: "4.3.3"
             docker_platform: linux/arm64
             manylinux_arch: aarch64
+            os: ubuntu-24.04-arm
           - pyver: "3.14"
             pyabi: cp314
             omniorb_version: "4.3.3"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.14"
             pyabi: cp314
             omniorb_version: "4.3.2"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.13"
             pyabi: cp313
             omniorb_version: "4.3.3"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.13"
             pyabi: cp313
             omniorb_version: "4.3.2"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.12"
             pyabi: cp312
             omniorb_version: "4.3.3"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.12"
             pyabi: cp312
             omniorb_version: "4.3.2"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.11"
             pyabi: cp311
             omniorb_version: "4.3.3"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.11"
             pyabi: cp311
             omniorb_version: "4.3.2"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.3.3"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.3.2"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.10"
             pyabi: cp310
             omniorb_version: "4.2.6"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.9"
             pyabi: cp39
             omniorb_version: "4.2.6"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.8"
             pyabi: cp38
             omniorb_version: "4.2.6"
             docker_platform: linux/amd64
             manylinux_arch: x86_64
+            os: ubuntu-latest
 
 
             
@@ -87,9 +104,10 @@ jobs:
         with:
           fetch-depth: 0  # Ensures all tags and history are available
     
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3  
+      # No need for qemu, we are running on the native architecture
+      #-
+      #  name: Set up QEMU
+      #  uses: docker/setup-qemu-action@v3  
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
