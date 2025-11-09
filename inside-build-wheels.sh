@@ -64,7 +64,7 @@ cd ..
 rm -rf omniORBpy-${OMNIORB_VERSION} 
 echo "Now building omniORBpy"
 echo "🛜 Downloading omniORBpy ${OMNIORB_VERSION}"
-curl -L https://downloads.sourceforge.net/omniorb/omniORBpy/omniORBpy-${OMNIORB_VERSION}/omniORBpy-${OMNIORB_VERSION}.tar.bz2 | tar xj
+cat /workdir/vendor/omniORBpy-${OMNIORB_VERSION}.tar.bz2 | tar xj
 cd omniORBpy-${OMNIORB_VERSION}
 
 
