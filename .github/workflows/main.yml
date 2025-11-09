@@ -65,7 +65,7 @@ jobs:
 
       - name: Build Docker builder image
         run: |
-          docker buildx build \
+          docker build \
           --tag my-builder:${{ github.sha }} \
           . \
 
