@@ -129,7 +129,7 @@ jobs:
       - name: Save wheel as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wheel-${{ matrix.omniorb_version }}-${{ matrix.pyver }}
+          name: wheel-${{ matrix.omniorb_version }}-${{ matrix.pyver }}-${{ matrix.manylinux_arch }}
           path: wheelhouse/
   
   gather-wheels:
