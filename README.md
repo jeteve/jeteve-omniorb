@@ -1,4 +1,5 @@
 
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/jeteve_omniorb) ![PyPI - Version](https://img.shields.io/pypi/v/jeteve_omniorb) [![Build and test](https://github.com/jeteve/jeteve-omniorb/actions/workflows/main.yml/badge.svg)](https://github.com/jeteve/jeteve-omniorb/actions/workflows/main.yml)
 
 # About jeteve-omniorb
 
