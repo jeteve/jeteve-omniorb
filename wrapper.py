@@ -12,8 +12,6 @@ def run_binary(binary_name):
         print(f"Binary {binary_name} not found at {binary_path}")
         sys.exit(1)
 
-    os.chmod(binary_path, 0o755)
-
     return subprocess.call([str(binary_path)] + sys.argv[1:])
 
 def _create_wrapper(binary_name):
