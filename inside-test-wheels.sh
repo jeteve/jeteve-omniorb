@@ -22,7 +22,10 @@ echo "✅ convertior works"
 genior IDL:MyInterface:1.0 192.168.1.100 8080 MyObjectKey
 echo "✅ genior works"
 
-for binary in nameclt omkdepend omniNames omniMapper; do
+omkdepend > /dev/null
+echo "✅ omkdepend works"
+
+for binary in nameclt omniNames omniMapper; do
     rc=0
     $binary || rc=$?
     echo "✅ $binary works Returned code = $rc"
