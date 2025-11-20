@@ -19,9 +19,16 @@ echo "✅ catior works"
 convertior IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672f4e616d696e67436f6e746578743a312e300000010000000000000070000000010102000d0000003139322e3136382e312e31303000f90a0b0000004e616d6553657276696365000300000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100 machine.example.com
 echo "✅ convertior works"
 
-for binary in genoir nameclt omkdepend omniNames omniMapper; do
-    $binary > /dev/null
-    echo "✅ $binary works"
+genior IDL:MyInterface:1.0 192.168.1.100 8080 MyObjectKey
+echo "✅ genior works"
+
+for binary in nameclt omkdepend omniNames omniMapper; do
+    $binary || rc=$?
+    echo "✅ $binary works Returned code = $rc"
+    if [ $rc -ne 1 ]; then
+        echo "💀 Command failed with unexpected code: $rc (expected 1)"
+        exit 1
+    fi
 done
 
 
