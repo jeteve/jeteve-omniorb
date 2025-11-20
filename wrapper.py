@@ -16,32 +16,20 @@ def run_binary(binary_name):
 
     return subprocess.call([str(binary_path)] + sys.argv[1:])
 
-def run_catior():
-    return run_binary("catior")
+def _create_wrapper(binary_name):
+    def wrapper():
+        return run_binary(binary_name)
+    return wrapper
 
-def run_convertior():
-    return run_binary("convertior")
-
-def run_genior():
-    return run_binary("genior")
-
-def run_nameclt():
-    return run_binary("nameclt")
-
-def run_omkdepend():
-    return run_binary("omkdepend")
-
-
-def run_omnicpp():
-    return run_binary("omnicpp")
-
+run_catior = _create_wrapper("catior")
+run_convertior = _create_wrapper("convertior")
+run_genior = _create_wrapper("genior")
+run_nameclt = _create_wrapper("nameclt")
+run_omkdepend = _create_wrapper("omkdepend")
+run_omnicpp = _create_wrapper("omnicpp")
 # OmniIDL is already built in.
-
-def run_omniMapper():
-    return run_binary("omniMapper")
-
-def run_omniNames():
-    return run_binary("omniNames")
+run_omniMapper = _create_wrapper("omniMapper")
+run_omniNames = _create_wrapper("omniNames")
 
 if __name__ == "__main__":
     sys.exit(run_omnicpp())
