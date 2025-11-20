@@ -1,4 +1,4 @@
-name: Build and test jeteve_omniorb
+name: Build and test
 on:
   push:  # Triggers on any push to any branch
 
