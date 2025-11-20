@@ -2,7 +2,7 @@ PYTHON_VERSION=$1
 OMNIORB_VERSION=$2
 
 echo "💫🐍 Testing OmniORB $OMNIORB_VERSION with Python $PYTHON_VERSION"
-
+export UV_LINK_MODE=copy
 set -e
 
 uv venv -p $PYTHON_VERSION --clear
@@ -12,8 +12,18 @@ uv pip install -n --no-index --find-links=wheelhouse/ "jeteve_omniorb~=$OMNIORB_
 cd example_${OMNIORB_VERSION}
 echo "✅ Omnicpp works" | omnicpp
 
-omniNames --help > /dev/null
-echo "✅ omniNames works"
+# Give a go at all the other binaries
+catior IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672f4e616d696e67436f6e746578743a312e300000010000000000000070000000010102000d0000003139322e3136382e312e31303000f90a0b0000004e616d6553657276696365000300000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100
+echo "✅ catior works"
+
+convertior IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672f4e616d696e67436f6e746578743a312e300000010000000000000070000000010102000d0000003139322e3136382e312e31303000f90a0b0000004e616d6553657276696365000300000000000000080000000100000000545441010000001c00000001000000010001000100000001000105090101000100000009010100 machine.example.com
+echo "✅ convertior works"
+
+for binary in genoir nameclt omkdepend omniNames omniMapper; do
+    $binary > /dev/null
+    echo "✅ $binary works"
+done
+
 
 # Follow the example from https://omniorb.sourceforge.io/omnipy43/omniORBpy/omniORBpy002.html#sec10
 
