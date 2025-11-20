@@ -12,16 +12,22 @@ def run_binary(binary_name):
         print(f"Binary {binary_name} not found at {binary_path}")
         sys.exit(1)
 
-    os.chmod(binary_path, 0o755)
-
     return subprocess.call([str(binary_path)] + sys.argv[1:])
 
+def _create_wrapper(binary_name):
+    def wrapper():
+        return run_binary(binary_name)
+    return wrapper
 
-def run_omnicpp():
-    return run_binary("omnicpp")
-
-def run_omniNames():
-    return run_binary("omniNames")
+run_catior = _create_wrapper("catior")
+run_convertior = _create_wrapper("convertior")
+run_genior = _create_wrapper("genior")
+run_nameclt = _create_wrapper("nameclt")
+run_omkdepend = _create_wrapper("omkdepend")
+run_omnicpp = _create_wrapper("omnicpp")
+# OmniIDL is already built in.
+run_omniMapper = _create_wrapper("omniMapper")
+run_omniNames = _create_wrapper("omniNames")
 
 if __name__ == "__main__":
     sys.exit(run_omnicpp())

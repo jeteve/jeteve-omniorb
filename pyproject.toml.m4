@@ -46,9 +46,15 @@ classifiers = [
 dependencies = []
 
 [project.scripts]
-omniidl = "omniidl.main:main"
+catior = "jeteve_omniorb.wrapper:run_catior"
+convertior = "jeteve_omniorb.wrapper:run_convertior"
+genior = "jeteve_omniorb.wrapper:run_genior"
+nameclt = "jeteve_omniorb.wrapper:run_nameclt"
+omkdepend = "jeteve_omniorb.wrapper:run_omkdepend"
 omnicpp = "jeteve_omniorb.wrapper:run_omnicpp"
+omniidl = "omniidl.main:main"
 omniNames = "jeteve_omniorb.wrapper:run_omniNames"
+omniMapper = "jeteve_omniorb.wrapper:run_omniMapper"
 
 [project.urls]
 Documentation = "https://github.com/jeteve/jeteve-omniorb#readme"

@@ -5,6 +5,7 @@ FROM quay.io/pypa/manylinux2014_${MANYLINUX_ARCH}
 ARG MANYLINUX_ARCH=x86_64
 ENV MANYLINUX_ARCH=${MANYLINUX_ARCH}
 
+RUN if yum repolist all | grep -q "^epel"; then yum-config-manager --disable epel; fi
 RUN yum install -y zip openssl-devel tree && yum clean all
 
 WORKDIR /workdir
