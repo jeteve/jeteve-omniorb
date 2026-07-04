@@ -11,6 +11,18 @@ jobs:
     strategy:
       matrix:
         include:
+          - pyver: "3.15"
+            pyabi: cp315
+            omniorb_version: "4.3.3"
+            docker_platform: linux/arm64
+            manylinux_arch: aarch64
+            os: ubuntu-24.04-arm
+          - pyver: "3.15"
+            pyabi: cp315
+            omniorb_version: "4.3.3"
+            docker_platform: linux/amd64
+            manylinux_arch: x86_64
+            os: ubuntu-latest
           - pyver: "3.14"
             pyabi: cp314
             omniorb_version: "4.3.3"
