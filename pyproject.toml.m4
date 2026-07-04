@@ -29,7 +29,7 @@ name = "jeteve-omniorb"
 version = "VERSION.POSTN_DOT_DEVN" # Comes from OmniOrb version and git tag via inside-build-wheels.sh
 description = 'pypi compatible packaging for OmniORB VERSION'
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "MIT"}
 keywords = []
 authors = [
