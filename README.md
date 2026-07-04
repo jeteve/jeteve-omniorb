@@ -36,6 +36,8 @@ This is tested as part of the building process.
 
 # How to build
 
+See [DEVELOPING.md](DEVELOPING.md) for full build, test, versioning, and release instructions.
+
 In your development environment, run ```build-wheels.sh``` You only need docker.
 
 # Version management
