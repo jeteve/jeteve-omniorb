@@ -6,6 +6,6 @@ ARG MANYLINUX_ARCH=x86_64
 ENV MANYLINUX_ARCH=${MANYLINUX_ARCH}
 
 RUN if yum repolist all | grep -q "^epel"; then yum-config-manager --disable epel; fi
-RUN yum install -y zip openssl-devel tree && yum clean all
+RUN yum install -y zip openssl-devel libffi-devel tree && yum clean all
 
 WORKDIR /workdir
